@@ -303,6 +303,9 @@ config MACH_LGE_OMAP3
 		config PRODUCT_LGE_P970
 			bool "LGE BLACK for open of EU"
 
+		config PRODUCT_LGE_XX855
+			bool "LGE xx855 (MARQUEE/IGNITE) for US CDMA"
+
 		config PRODUCT_LGE_KU5900
 			bool "LGE BLACK for KT of KOREA"
 

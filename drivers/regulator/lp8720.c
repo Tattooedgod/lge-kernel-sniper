@@ -237,7 +237,7 @@ static int lp8720_suspend(struct i2c_client *client, pm_message_t mesg)
 	struct lp8720_platform_data *pdata;
 	pdata = client->dev.platform_data;
 
-#if !defined(CONFIG_PRODUCT_LGE_KU5900)&& !defined(CONFIG_PRODUCT_LGE_P970)
+#if !defined(CONFIG_PRODUCT_LGE_KU5900)&& !defined(CONFIG_PRODUCT_LGE_P970) && !defined(CONFIG_PRODUCT_LGE_XX855)
 	/*if sdcard is inserted, power must be alive*/
 	if (lp8720_output_status & 0x01) return 0;
 
@@ -249,7 +249,7 @@ static int lp8720_suspend(struct i2c_client *client, pm_message_t mesg)
 
 static int lp8720_resume(struct i2c_client *client)
 {
-#if !defined(CONFIG_PRODUCT_LGE_KU5900)&& !defined(CONFIG_PRODUCT_LGE_P970)
+#if !defined(CONFIG_PRODUCT_LGE_KU5900)&& !defined(CONFIG_PRODUCT_LGE_P970) && !defined(CONFIG_PRODUCT_LGE_XX855)
 	/*if sdcard is inserted, power must be alive*/
 	if (lp8720_output_status & 0x01) {
 		return 0;

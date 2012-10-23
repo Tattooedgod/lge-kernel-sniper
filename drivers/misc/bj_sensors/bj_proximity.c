@@ -213,7 +213,7 @@ static void hub_proxi_power_onoff(bool enable)
 // LGE_JUSTIN_S 20101229 nttaejun.cho@lge.com, proximity sensor	
 
 //--[[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2012.03.30] - KU5900 / P970 featuring
-#if defined(CONFIG_MACH_LGE_HEAVEN_REV_A) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970) /*defined(CONFIG_MACH_LGE_HUB)*/
+#if defined(CONFIG_MACH_LGE_HEAVEN_REV_A) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) /*defined(CONFIG_MACH_LGE_HUB)*/
 //--]] LGE_UBIQUIX_MODIFIED_END : shyun@ubiquix.com [2012.03.30]- KU5900 / P970 featuring
 
 	if(enable) {
@@ -585,7 +585,7 @@ static int __init hub_proxi_probe(struct i2c_client *client, const struct i2c_de
 		return -ENODEV;
 	}
 //--[[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2012.03.30] - KU5900 / P970 Featuring
-#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970) /*defined(CONFIG_MACH_LGE_HUB)*/
+#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) /*defined(CONFIG_MACH_LGE_HUB)*/
 //--]] LGE_UBIQUIX_MODIFIED_END : shyun@ubiquix.com [2012.03.30]- KU5900 / P970 Featuring
 	reg = regulator_get(dev, "vaux1");
 	if (reg == NULL) {
@@ -675,7 +675,7 @@ static int hub_proxi_remove(struct i2c_client *client)
 /*LGE_CHANGE_S [kyw2029@lge.com] 2010-01-04, ldoc control*/
 //--[[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2011.08.02] - cd /sys/bus/i2c/devices/3-0044/
 //--[[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2012.03.30] - KU5900 / P970 Featuring
-#if defined(CONFIG_MACH_LGE_HEAVEN_REV_A) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970)/*defined(CONFIG_MACH_LGE_HUB)*/
+#if defined(CONFIG_MACH_LGE_HEAVEN_REV_A) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) /*defined(CONFIG_MACH_LGE_HUB)*/
 //--]] LGE_UBIQUIX_MODIFIED_END : shyun@ubiquix.com [2012.03.30]- KU5900 / P970 Featuring
 //--]] LGE_UBIQUIX_MODIFIED_END : shyun@ubiquix.com [2011.08.02]- cd /sys/bus/i2c/devices/3-0044/
 	regulator_put(reg);
@@ -752,7 +752,7 @@ static const struct i2c_device_id hub_proxi_ids[] = {
 //--[[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2012.03.30] - Featuring in ICS.
 #if defined(CONFIG_PRODUCT_LGE_LU6800)
 	{ "justin_proxi", 0 },
-#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970)
+#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	{ "black_proxi", 0 },
 #else
 #error "Please check the product definition(Proximity)"
@@ -775,7 +775,7 @@ static struct i2c_driver hub_proxi_driver = {
 //--[[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2012.03.30] - Featuring in ICS
 #if defined(CONFIG_PRODUCT_LGE_LU6800)
 		.name = "justin_proxi",
-#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970)
+#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 		.name = "black_proxi",
 #else
 #error "Please check the product definition(Proximity)"

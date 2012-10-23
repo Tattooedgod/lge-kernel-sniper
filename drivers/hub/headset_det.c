@@ -32,7 +32,7 @@
 #define DBG(...) 
 #endif
 
-#if defined(CONFIG_PRODUCT_LGE_KU5900) ||defined(CONFIG_PRODUCT_LGE_P970)||defined(CONFIG_PRODUCT_LGE_LU6800)||defined(CONFIG_PRODUCT_LGE_HUB) // 20110105 seungdae.goh@lge.com justin gpio adjust // 20110527 bsnoh@ubiquix.com add Hub Product
+#if defined(CONFIG_PRODUCT_LGE_KU5900) ||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) ||defined(CONFIG_PRODUCT_LGE_LU6800)||defined(CONFIG_PRODUCT_LGE_HUB) // 20110105 seungdae.goh@lge.com justin gpio adjust // 20110527 bsnoh@ubiquix.com add Hub Product
 #define USE_LDOBIAS 1 //B-PRJ, Justin : use mic bias by gpio_en
 #endif
 
@@ -57,7 +57,7 @@ unsigned int headset_status = 0;
 headset_type_enum headset_type = HUB_NONE;
 unsigned int hook_status = HOOK_RELEASED;
 
-#if defined(CONFIG_PRODUCT_LGE_KU5900) ||defined(CONFIG_PRODUCT_LGE_P970)|| defined(CONFIG_PRODUCT_LGE_LU6800)
+#if defined(CONFIG_PRODUCT_LGE_KU5900) ||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_LU6800)
 /* 20110215 jiwon.seo@lge.com for EarJack & Hook Action [START] */
 int type_detection_tim = 600;	
 int hook_detection_tim = 100; 
@@ -85,7 +85,7 @@ struct headset_switch_data {
 	struct input_dev *ip_dev;		/* LGE_CHANGE_S [luckyjun77@lge.com] 2009-11-25, heaven rev A hook key */    
 	struct early_suspend early_suspend;		// 20100603 junyeop.kim@lge.com, headset suspend/resume [START_LGE]
 	int is_suspend;					// 20100603 junyeop.kim@lge.com, headset suspend/resume [START_LGE]
-#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970)||defined(CONFIG_PRODUCT_LGE_XX855)
 	//nothing
 #else
 	unsigned dmb_ant_gpio;				// 20100814 junyeop.kim@lge.com, dmb ant gpio [START_LGE]
@@ -142,7 +142,7 @@ EXPORT_SYMBOL(get_headset_type);
 
 int get_dmb_status(void)
 {
-#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970)||defined(CONFIG_PRODUCT_LGE_XX855)
 	return 0;
 #else
     return (int)headset_sw_data->dmb_ant_detected;
@@ -180,7 +180,7 @@ static void headset_det_work(struct work_struct *work)
 
 	if(headset_status == 0)
 	{
-#if defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_LU6800)||defined(CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_LU6800)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	#ifdef USE_LDOBIAS	
 		gpio_direction_output(MIC_BIAS_LDO, 0);
 		gpio_set_value(MIC_BIAS_LDO, 0);
@@ -214,7 +214,7 @@ static void headset_det_work(struct work_struct *work)
 	
 	msleep(100);
 
-#if defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_LU6800)||defined(CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_LU6800)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	#ifdef USE_LDOBIAS	
 		gpio_direction_output(MIC_BIAS_LDO, 1);
 		gpio_set_value(MIC_BIAS_LDO, 1);
@@ -230,7 +230,7 @@ static void headset_det_work(struct work_struct *work)
 
 #endif
 
-#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_LU6800)	// 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
+#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_LU6800)	// 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
 	//nothing
 #elif defined(CONFIG_PRODUCT_LGE_HUB)
    if(system_rev > 3 && gpio_get_value(headset_sw_data->dmb_ant_gpio) == 1) 
@@ -305,7 +305,7 @@ static void type_det_work(struct work_struct *work)
 	else
 	{
 		headset_type = HUB_NONE;
-#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_LU6800) // 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]		
+#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_LU6800) // 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]		
 	//nothing
 #elif defined(CONFIG_PRODUCT_LGE_HUB) // bsnoh@ubiquix.com : Mach_Hub use external ant for dmb
 		headset_sw_data->dmb_ant_detected = 0;
@@ -314,7 +314,7 @@ static void type_det_work(struct work_struct *work)
 	}
 
 
-#if defined(CONFIG_PRODUCT_LGE_KU5900) ||defined(CONFIG_PRODUCT_LGE_P970)|| defined(CONFIG_PRODUCT_LGE_LU6800) 	// 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
+#if defined(CONFIG_PRODUCT_LGE_KU5900) ||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_LU6800) 	// 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
 	//nothing
 #elif defined(CONFIG_PRODUCT_LGE_HUB) // bsnoh@ubiquix.com : Mach_Hub use external ant for dmb
 //	msleep(100);
@@ -329,7 +329,7 @@ static void type_det_work(struct work_struct *work)
 	}
 #endif	// 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
 
-#if defined(CONFIG_PRODUCT_LGE_KU5900) ||defined(CONFIG_PRODUCT_LGE_P970)|| defined(CONFIG_PRODUCT_LGE_LU6800) // 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
+#if defined(CONFIG_PRODUCT_LGE_KU5900) ||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_LU6800) // 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
 		if(headset_type == HUB_NONE)
 		{
 	#ifdef USE_LDOBIAS			
@@ -438,7 +438,7 @@ static void hook_det_work(struct work_struct *work)
 			//DBG("[JIWON] threshold area for hook key glitch2\n");		
 		    hook_status = HOOK_PRESSED; 
 //		    input_report_key(headset_sw_data->ip_dev, KEY_HOOK, 1);
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) //20110404 mikyoung.chang@lge.com B HW Request.roll back the delay time.
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) //20110404 mikyoung.chang@lge.com B HW Request.roll back the delay time.
 			schedule_delayed_work(&headset_sw_data->hook_delayed_work,	msecs_to_jiffies(10 /*type_detection_tim/8*/)); //20110401 seungdae.goh@lge.com  Not   B-prj case
 #elif defined(CONFIG_PRODUCT_LGE_HUB)
 			schedule_delayed_work(&headset_sw_data->hook_delayed_work,	msecs_to_jiffies(type_detection_tim/8)); 
@@ -450,7 +450,7 @@ static void hook_det_work(struct work_struct *work)
 			DBG("[JIWON] HOOK_PRESSED\n");
 		    input_report_key(headset_sw_data->ip_dev, KEY_HOOK, 1);		    
 			input_sync(headset_sw_data->ip_dev);		    
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970)			
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 			schedule_delayed_work(&headset_sw_data->hook_delayed_work,	msecs_to_jiffies(hook_detection_tim)); /* 20110215 jiwon.seo@lge.com for EarJack & Hook Action */			
 #elif defined(CONFIG_PRODUCT_LGE_HUB)
 			schedule_delayed_work(&headset_sw_data->hook_delayed_work,	msecs_to_jiffies(type_detection_tim));
@@ -505,7 +505,7 @@ static irqreturn_t headset_hook_int_handler(int irq, void *dev_id)
 				DBG("[JIWON] headset_hook_int_handler: IsHeadsetInserted \n");
 	/* 20110215 jiwon.seo@lge.com for EarJack & Hook Action [END] */
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
     schedule_delayed_work(&switch_data->hook_delayed_work,	msecs_to_jiffies(hook_detection_tim)); /* 20110215 jiwon.seo@lge.com for EarJack & Hook Action */
 #elif defined(CONFIG_PRODUCT_LGE_HUB)
 	schedule_delayed_work(&switch_data->hook_delayed_work,	msecs_to_jiffies(type_detection_tim));
@@ -514,7 +514,7 @@ static irqreturn_t headset_hook_int_handler(int irq, void *dev_id)
 	return IRQ_HANDLED;
 }
 
-#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_LU6800) // 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
+#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_LU6800) // 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
 	//nothing
 #else
 static irqreturn_t dmb_ant_int_handler(int irq, void *dev_id)
@@ -588,7 +588,7 @@ static int headsetdet_probe(struct platform_device *pdev)
 
          switch_data->hook_gpio = HOOK_ADC_GPIO;
     
-#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_LU6800)	// 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
+#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_LU6800)	// 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
 	//nothing
 #elif defined(CONFIG_PRODUCT_LGE_HUB) // bsnoh@ubiquix.com : Mach_Hub use external ant for dmb
 	switch_data->dmb_ant_gpio = 164;
@@ -609,7 +609,7 @@ static int headsetdet_probe(struct platform_device *pdev)
 
 	ret = gpio_request(switch_data->hook_gpio, pdev->name);
 
-#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_LU6800) // 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
+#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_LU6800) // 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
 	//nothing
 #else
 	ret = gpio_request(switch_data->dmb_ant_gpio, pdev->name);
@@ -622,7 +622,7 @@ static int headsetdet_probe(struct platform_device *pdev)
 
 	ret = gpio_direction_input(switch_data->hook_gpio);
 
-#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_HUB)// 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
+#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_HUB)// 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
 	//nothing
 #else
 //--[[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2011.08.11] - GPIO direction input error fixed.
@@ -656,7 +656,7 @@ static int headsetdet_probe(struct platform_device *pdev)
 	switch_data->irq = gpio_to_irq(switch_data->gpio);
 	switch_data->hook_irq = gpio_to_irq(switch_data->hook_gpio);
 // 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]	
-#if defined(CONFIG_PRODUCT_LGE_KU5900) ||defined(CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_KU5900) ||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	//nothing
 #else
 	switch_data->dmb_ant_irq = gpio_to_irq(switch_data->dmb_ant_gpio);	// 20100814 junyeop.kim@lge.com, dmb ant gpio [START_LGE]
@@ -712,7 +712,7 @@ static int headsetdet_probe(struct platform_device *pdev)
 // 20100825 junyeop.kim@lge.com, mic bias LDO control test [END_LGE]
 
 // 20100814 junyeop.kim@lge.com, dmb ant detect [START_LGE]
-#if defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_LU6800)||defined(CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_LU6800)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	//nothing
 #else
     ret = request_irq(switch_data->dmb_ant_irq, dmb_ant_int_handler,
@@ -758,7 +758,7 @@ static int headsetdet_remove(struct platform_device *pdev)
 	cancel_delayed_work_sync(&switch_data->delayed_work);
 	gpio_free(switch_data->gpio);
 	gpio_free(switch_data->hook_gpio);
-#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_KU5900)||defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	//nothing
 #else	
 	gpio_free(switch_data->dmb_ant_gpio);	// 20100814 junyeop.kim@lge.com, dmb ant gpio [START_LGE]	

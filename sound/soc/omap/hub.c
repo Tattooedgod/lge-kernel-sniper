@@ -305,7 +305,7 @@ static struct snd_soc_ops hub_pcm_ops = {
 	.hw_free = hub_pcm_hw_free,
 };
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_HUB)/* LGE_CHANGE_S [iggikim@lge.com] 2009-11-04, call path */
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_HUB)/* LGE_CHANGE_S [iggikim@lge.com] 2009-11-04, call path */
 extern void hub_set_call_mode(struct snd_pcm_substream *substream, int mode);
 
 static int hub_call_hw_params(struct snd_pcm_substream *substream,
@@ -489,7 +489,7 @@ static const char *ext_amp_mode_texts[] =
 		{"OFF", "Headset", "Speaker", "Dual", "Bypass", "Spkcall", "Headsetcall", "BypassVOIP", "SpkcallVOIP", "HeadsetcallVOIP"};
 static const struct soc_enum ext_amp_mode_soc_enum =
 	SOC_ENUM_SINGLE_EXT(10, ext_amp_mode_texts);
-#elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [START] 
 static const char *ext_amp_mode_texts[] =
 		{"OFF", "Headset", "Speaker", "Dual", "Bypass", "Spkcall", "Headsetcall", "BypassVOIP", "SpkcallVOIP", "HeadsetcallVOIP","SpkFMR","HeadsetFMR"};
@@ -551,7 +551,7 @@ static int voice_set_mode(struct snd_kcontrol *kcontrol,
 	return 1;
 }
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)//20110126 jisun.kwon vt_bt_audiopath
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) //20110126 jisun.kwon vt_bt_audiopath
 static const char *voice_mode_texts[] =
 		{"OFF", "Headset", "Speaker", "Receiver", "Headphone","VT_SCO_Headset","VT_Headset", "VT_Speaker","VT_Receiver","VT_Headphone","VT_Call_End","VOIP_End"};
 
@@ -624,7 +624,7 @@ static const struct soc_enum callrec_mode_soc_enum =
 static const struct snd_kcontrol_new callrec_mode_control =
 	SOC_ENUM_EXT("Route", callrec_mode_soc_enum, callrec_get_mode, callrec_set_mode);
 // 20100521 junyeop.kim@lge.com call recording path [END_LGE]
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [START] 
 static int fmradio_set_volume(struct snd_kcontrol *kcontrol, struct snd_ctl_elem_value *ucontrol)
 {
@@ -679,7 +679,7 @@ SOC_ENUM_SINGLE_EXT(2, mic_switch_texts);
 static const struct snd_kcontrol_new mic_switch_control =
 SOC_ENUM_EXT("Route", mic_switch_soc_enum, get_mic_switch, set_mic_switch);
 //jongik2.kim 20101220 add mic2 control [end]
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 static const struct snd_soc_dapm_widget hub_twl4030_dapm_widgets[] = {
 #if 0  //jongik2.kim@lge.com
 	SND_SOC_DAPM_MIC("Ext Mic", NULL),
@@ -696,7 +696,7 @@ static const struct snd_soc_dapm_widget hub_twl4030_dapm_widgets[] = {
 	SND_SOC_DAPM_MUX("Voice", SND_SOC_NOPM, 0, 0, &voice_mode_control), /* LGE_CHANGE_S [iggikim@lge.com] 2009-08-06, audio path */
 	SND_SOC_DAPM_MUX("Mic", SND_SOC_NOPM, 0, 0, &mic_mode_control),		// 20100426 junyeop.kim@lge.com Add the mic mute [START_LGE]
 	SND_SOC_DAPM_MUX("CallRec", SND_SOC_NOPM, 0, 0, &callrec_mode_control),		// 20100521 junyeop.kim@lge.com call recording path [START_LGE]
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [START] 
        SND_SOC_DAPM_MUX("FMradio", SND_SOC_NOPM, 0, 0, &FM_volume_control),
 //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [END] 
@@ -704,7 +704,7 @@ static const struct snd_soc_dapm_widget hub_twl4030_dapm_widgets[] = {
     #if defined(CONFIG_CALL_USES_BS300)
     SND_SOC_DAPM_MUX("Bs300", SND_SOC_NOPM, 0, 0, &bs300_mode_control), 
 	#endif
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 };
 #if defined(CONFIG_CALL_USES_BS300)
 static const struct snd_soc_dapm_route audio_map[] = {
@@ -867,7 +867,7 @@ static struct snd_soc_dai_link hub_dai[] = {
 		.codec_name = "twl4030-codec",
 		.ops = &hub_fm_ops,
 	},
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_HUB) /* LGE_CHANGE_S [iggikim@lge.com] 2009-11-04, call path */
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_HUB) /* LGE_CHANGE_S [iggikim@lge.com] 2009-11-04, call path */
 	{
 		.name = "IFX_CALL",
 		.stream_name = "IFX_CALL",

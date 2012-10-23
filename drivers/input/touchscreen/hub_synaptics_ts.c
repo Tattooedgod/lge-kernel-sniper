@@ -252,6 +252,33 @@ unsigned char SynapticsFirmware[FW_IMAGE_SIZE];
 #define SYNAPTICS_TS_SENSITYVITY_REG		0x9B
 #define SYNAPTICS_TS_SENSITYVITY_VALUE		0x00
 
+#define SYNAPTICS_PANEL_BUTTON_1_MIN_X		35
+#define SYNAPTICS_PANEL_BUTTON_1_MAX_X		245
+#define SYNAPTICS_PANEL_BUTTON_2_MIN_X		287
+#define SYNAPTICS_PANEL_BUTTON_2_MAX_X		497
+
+/*
+ * This is not entirely correct.  The LS855 and LG855 have menu and home
+ # buttons reversed (with respect to the intl versions), but the AS855 does
+ * not.  This does not warrant a different kernel binary, so it is not
+ * handled here.
+ *
+ * Currently we require the ROM to swap the buttons in the keylayout file.
+ * This is not an optimal solution.  It would be nice if userspace could
+ * notify us to swap the buttons on the fly when the model is discovered.
+ */
+#ifdef CONFIG_PRODUCT_LGE_XX855
+#define SYNAPTICS_PANEL_BUTTON_HOME_MIN_X	SYNAPTICS_PANEL_BUTTON_1_MIN_X
+#define SYNAPTICS_PANEL_BUTTON_HOME_MAX_X	SYNAPTICS_PANEL_BUTTON_1_MAX_X
+#define SYNAPTICS_PANEL_BUTTON_MENU_MIN_X	SYNAPTICS_PANEL_BUTTON_2_MIN_X
+#define SYNAPTICS_PANEL_BUTTON_MENU_MAX_X	SYNAPTICS_PANEL_BUTTON_2_MAX_X
+#else
+#define SYNAPTICS_PANEL_BUTTON_MENU_MIN_X	SYNAPTICS_PANEL_BUTTON_1_MIN_X
+#define SYNAPTICS_PANEL_BUTTON_MENU_MAX_X	SYNAPTICS_PANEL_BUTTON_1_MAX_X
+#define SYNAPTICS_PANEL_BUTTON_HOME_MIN_X	SYNAPTICS_PANEL_BUTTON_2_MIN_X
+#define SYNAPTICS_PANEL_BUTTON_HOME_MAX_X	SYNAPTICS_PANEL_BUTTON_2_MAX_X
+#endif
+
 /*- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -*/
 /*                                                                         */
 /*                         DATA DEFINITIONS                                */
@@ -711,7 +738,7 @@ do
 					{
 						if(curr_ts_data.Y_position[ts_i] > SYNAPTICS_PANEL_BUTTON_MIN_Y)
 						{
-							if(curr_ts_data.X_position[ts_i] > 35 && curr_ts_data.X_position[ts_i] < 245) //center 75
+							if(curr_ts_data.X_position[ts_i] > SYNAPTICS_PANEL_BUTTON_MENU_MIN_X && curr_ts_data.X_position[ts_i] < SYNAPTICS_PANEL_BUTTON_MENU_MAX_X)
 							{
 								if(!prev_ts_data.touch_status[ts_i])
 								{
@@ -731,7 +758,7 @@ do
 									}
 								}
 							}
-							else if(curr_ts_data.X_position[ts_i] > 287 && curr_ts_data.X_position[ts_i] < 497) //center 185
+							else if(curr_ts_data.X_position[ts_i] > SYNAPTICS_PANEL_BUTTON_HOME_MIN_X && curr_ts_data.X_position[ts_i] < SYNAPTICS_PANEL_BUTTON_HOME_MAX_X)
 							{
 								if(!prev_ts_data.touch_status[ts_i])
 								{

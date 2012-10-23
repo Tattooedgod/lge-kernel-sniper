@@ -41,13 +41,13 @@ extern int voice_get_curmode(void);
 
 
 static struct regulator *wm9093_reg;
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 static wm9093_fmvolume_enum s_volume =  LEVEL_4;
 //20101222 inbang.park@lge.com Wake lock for  FM Radio [START]
 static wm9093_fmvolume_enum s_modes = LEVEL_OFF;
 unsigned int cur_fmradio_mode = 0;
 //20101222 inbang.park@lge.com Wake lock for  FM Radio [END]
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 int wm9093_call_status = 1;		//20101209 junyeop.kim@lge.com, reduce the outgoing call noise (0 : incoming call, 1 :other case) [START_LGE]
 #if defined(CONFIG_PRODUCT_LGE_LU6800)  // 20101231 seungdae.goh@lge.com HW_TUNNING
@@ -362,7 +362,7 @@ static const wm9093_reg_type wm9093_pwroff_tab[] =
 
 
 
-#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)    /*  defined(CONFIG_MACH_LGE_JUSTIN) */
+#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)    /*  defined(CONFIG_MACH_LGE_JUSTIN) */
 
 static const wm9093_reg_type wm9093_in1_to_out_tab[] =
 {
@@ -1109,7 +1109,7 @@ static unsigned int wm9093_read_reg(struct i2c_client *client, unsigned char reg
 
 static int wm9093_write_reg(struct i2c_client *client, u8 reg, int val)
 {
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)	// dajin.kim temp code
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)	// dajin.kim temp code
 	int ret;
 	int retry = 3;
 
@@ -1290,7 +1290,7 @@ void wm9093_configure_path(wm9093_mode_enum mode)
 	    case SPEAKER_HEADSET_DUAL_AUDIO_MODE : wm9093_write_table((wm9093_reg_type*)&wm9093_in2_to_out_hp_tab[0]);
 						 wm9093_amp_dev->wm9093_mode = SPEAKER_HEADSET_DUAL_AUDIO_MODE;
 			             break;
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	    case RECEIVER_CALL_MODE : wm9093_write_table((wm9093_reg_type*)&wm9093_in3_to_out_tab[0]);
 						   wm9093_amp_dev->wm9093_mode = RECEIVER_CALL_MODE;
 						   break;
@@ -1358,7 +1358,7 @@ void wm9093_configure_path(wm9093_mode_enum mode)
 		wm9093_write_table((wm9093_reg_type*)&wm9093_in1_to_hp_voip_tab[0]);
 		wm9093_amp_dev->wm9093_mode = HEADSET_VOIP_MODE;
 		break;
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 		//20101205 inbang.park@lge.com Add STREAM  for  FM Radio [START]
 	case SPEAKER_FMR_MODE:
 		wm9093_write_table((wm9093_reg_type*)&wm9093_in1_to_FMout_tab[0]);
@@ -1374,14 +1374,14 @@ void wm9093_configure_path(wm9093_mode_enum mode)
 		wm9093_amp_dev->wm9093_mode = HEADSET_FMR_MODE;
 		break;
 	      //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [END]
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	default:
 		break;
 	}
 	pre_voice_curmode = voice_get_curmode();
 }
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [START]
 #define SET_FM_VOL(headphone, speaker) do { \
 			wm9093_write_reg(wm9093_i2c_dev->client, 0x1C, headphone); \
@@ -1422,7 +1422,7 @@ void wm9093_fmradio_volume(wm9093_fmvolume_enum volume)
 	}
 }
 //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [END]
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 int wm9093_ext_suspend()
 {
@@ -1464,7 +1464,7 @@ int wm9093_ext_resume()
 		break;
 	case HEADSET_VOIP_MODE: wm9093_write_table((wm9093_reg_type*)&wm9093_in1_to_hp_voip_tab[0]);
 		break;
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	     //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [START]
 	case SPEAKER_FMR_MODE: wm9093_write_table((wm9093_reg_type*)&wm9093_in1_to_FMout_tab[0]);
 		wm_delay_msec(50);
@@ -1475,14 +1475,14 @@ int wm9093_ext_resume()
 		wm9093_fmradio_volume(s_volume);
 		break;
 	      //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [END]
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	default :
 	     break;
 	}
 	return 0;
 }
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 //20101222 inbang.park@lge.com Wake lock for  FM Radio [START]
 void fmradio_configure_path(wm9093_fmvolume_enum mode)
 {
@@ -1507,12 +1507,12 @@ int fmradio_get_curmode()
 	return cur_fmradio_mode;
 }
 //20101222 inbang.park@lge.com Wake lock for  FM Radio [END]
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 EXPORT_SYMBOL(wm9093_get_curmode);
 EXPORT_SYMBOL(wm9093_configure_path);
 EXPORT_SYMBOL(wm9093_ext_suspend);
 EXPORT_SYMBOL(wm9093_ext_resume);
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [START]
 EXPORT_SYMBOL(wm9093_fmradio_volume);
 //20101205 inbang.park@lge.com Add STREAM  for  FM Radio [END]
@@ -1520,7 +1520,7 @@ EXPORT_SYMBOL(wm9093_fmradio_volume);
 EXPORT_SYMBOL(fmradio_configure_path);
 EXPORT_SYMBOL(fmradio_get_curmode);
 //20101222 inbang.park@lge.com Wake lock for  FM Radio [END]
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 ssize_t wm9093_show_level(struct device *dev, struct device_attribute *attr, char *buf)
 {

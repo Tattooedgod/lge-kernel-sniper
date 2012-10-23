@@ -34,7 +34,7 @@
 #include <sound/soc.h>
 #include <sound/initval.h>
 #include <sound/tlv.h>
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) // 20100618 junyeop.kim@lge.com, audio path [START_LGE]
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) // 20100618 junyeop.kim@lge.com, audio path [START_LGE]
 #include <mach/hub_headset_det.h>
 #endif /* LGE_CHANGE_E [iggikim@lge.com]*/
 #if defined(CONFIG_HUB_AMP_WM9093)
@@ -71,7 +71,7 @@
 
 #if defined(CONFIG_PRODUCT_LGE_LU6800) // 20101214 seungdae.goh@lge.com justin gpio adjust
 #define MIC_SEL_GPIO  63
-#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 #define MIC_SEL_GPIO  87
 #elif defined(CONFIG_PRODUCT_LGE_HUB)
 // Hub not used the Mic2
@@ -83,14 +83,14 @@ unsigned int dmb_status = 0;	//junyeop.kim@lge.com
 unsigned int twl4030_status = 1;	//0 : sleep, 1 : resume
 unsigned int call_headset_ramp = 0;
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 //20101225 inbang.park@lge.com Wake lock for FM Radio[START]
 extern unsigned int cur_fmradio_mode;
 unsigned int fmradio_suspend_user = 0;
 unsigned fmradio_is_on = 0;
 //20101225 inbang.park@lge.com Wake lock for FM Radio[END]
 //unsigned int dmb_status = 0;	//junyeop.kim@lge.com
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 /*
  * twl4030 register cache & default register settings
@@ -175,7 +175,8 @@ static const u8 twl4030_reg[TWL4030_CACHEREGNUM] = {
 	0x00, /* REG_MISC_SET_2		(0x49)	*/
 	0x00, /* REG_SW_SHADOW		(0x4A)	- Shadow, non HW register */
 };
-#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
+/* XXXTDM: is the above table more applicable for sniper? */
 static const u8 twl4030_reg[TWL4030_CACHEREGNUM] = {
 	0x00, /* this register not used		*/
 	0xa1, /* REG_CODEC_MODE		(0x1)	*/
@@ -349,7 +350,7 @@ extern int get_dmb_status(void);
 extern struct snd_soc_codec *snd_soc_get_codec(const char *name);
 // prime@sdcmicro.com Added function to get the codec instance [END]
 // [bsnoh@ubiquix][20110528] : Added code from froyo Justin [Start]
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 static const twl_reg_type twl_vt_receiver_call_tab[] =
 {
 	/*reg_control_type, address, data  */
@@ -459,7 +460,7 @@ static const twl_reg_type twl_vt_bt_call_tab[] =
 	{TWL4030_CMD ,TWL4030_REG_VOICE_IF, 0x84},
 	{TWL4030_END_SEQ,0x00,0x00}
 };
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 #if defined(CONFIG_PRODUCT_LGE_LU6800)
 
@@ -659,7 +660,7 @@ static const twl_reg_type twl_headphone_call_tab[] =
 	{TWL4030_END_SEQ,0x00,0x00}
 };
 
-#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 static const twl_reg_type twl_receiver_call_tab[] =
 {
 	{TWL4030_CMD ,TWL4030_REG_CODEC_MODE, 0xa2},
@@ -905,7 +906,7 @@ struct twl4030_priv {
 
 	/* Delay needed after enabling the digimic interface */
 	unsigned int digimic_delay;
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) // 20100618 junyeop.kim@lge.com, call path [START_LGE}
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) // 20100618 junyeop.kim@lge.com, call path [START_LGE}
 	unsigned int is_calling;
 #endif
 };
@@ -1097,7 +1098,7 @@ static int twl4030_write(struct snd_soc_codec *codec,
 	int write_to_reg = 0;
 
 	// prime@sdcmicro.com LGE specific codec control [START]
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)  /* 20100618 junyeop.kim@lge.com, call path */
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) /* 20100618 junyeop.kim@lge.com, call path */
 #if defined(CONFIG_PRODUCT_LGE_HUB)    // 20100515 junyeop.kim@lge.com,voice call tuning (HW request) [START_LGE]
 	if((twl4030->is_calling) && (reg != TWL4030_REG_VRXPGA)) //except volume reg
 		return 0;
@@ -1827,7 +1828,7 @@ static int headsetlpga_event(struct snd_soc_dapm_widget *w,
 #if defined(CONFIG_PRODUCT_LGE_HUB) /* 20100913 junyeop.kim@lge.com, fix the headset call path */
 	if(twl4030->is_calling)
 		return 0;
-#elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)/* 20100913 junyeop.kim@lge.com, fix the headset call path */
+#elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) /* 20100913 junyeop.kim@lge.com, fix the headset call path */
 	if(twl4030->is_calling|| fmradio_is_on == 1)
 	{
 		return 0;
@@ -1867,7 +1868,7 @@ static int headsetrpga_event(struct snd_soc_dapm_widget *w,
 #if defined(CONFIG_PRODUCT_LGE_HUB) /* 20100913 junyeop.kim@lge.com, fix the headset call path */
 	if(twl4030->is_calling)
 		return 0;
-#elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)/* 20100913 junyeop.kim@lge.com, fix the headset call path */
+#elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) /* 20100913 junyeop.kim@lge.com, fix the headset call path */
 	if(twl4030->is_calling ||fmradio_is_on == 1)
 	{
 		return 0;
@@ -2767,7 +2768,7 @@ static int twl4030_set_bias_level(struct snd_soc_codec *codec,
 	wm9093_ext_suspend();
 #endif
 	// prime@sdcmicro.com Merge with 2.6.32 [END]
-#elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	//20101222 inbang.park@lge.com Wake lock for  FM Radio [START]
 	DBG("\n");
 	if(cur_fmradio_mode == 1)
@@ -2785,7 +2786,7 @@ static int twl4030_set_bias_level(struct snd_soc_codec *codec,
 #if defined(CONFIG_HUB_AMP_WM9093)
 	wm9093_ext_suspend();
 #endif
-#endif // #elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 	switch (level) {
 		case SND_SOC_BIAS_ON:
@@ -2863,7 +2864,7 @@ static void twl4030_tdm_enable(struct snd_soc_codec *codec, int direction,
 }
 
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) /* LGE_CHANGE_S [iggikim@lge.com] 2009-08-06, audio path */
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) /* LGE_CHANGE_S [iggikim@lge.com] 2009-08-06, audio path */
 voice_mode_enum cur_twl_mode = TWL4030_AUDIO_MODE;
 mic_mode_enum cur_mic_mode = TWL4030_RESTORE_MIC_MODE;	// 20100426 junyeop.kim@lge.com Add the mic mute [START_LGE]
 callrec_mode_enum cur_callrec_mode = TWL4030_CALLREC_OFF_MODE;	// 20100521 junyeop.kim@lge.com call recording path [START_LGE]
@@ -2917,7 +2918,7 @@ void set_voice_table(twl_reg_type* table)
 #if 0	//wake lock for call
 int wake_lock_on = 0;
 #endif
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 //jongik2.kim 20101220 add mic2 control [start]
 void twl4030_set_mic_switch(int mic)
 {
@@ -2949,7 +2950,7 @@ void twl4030_set_mic_switch(int mic)
 	return;
 }
 //jongik2.kim 20101220 add mic2 control [end]
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 void voice_configure_path(voice_mode_enum mode)
 {
@@ -2985,9 +2986,9 @@ void voice_configure_path(voice_mode_enum mode)
 			printk("[TWL4030]voice_configure_path::TWL4030_AUDIO_MODE..\n");
 			wm9093_configure_path(0); //220110313 jisun.kwon :anti-pop noise
 			twl4030_restore_reg_cache();
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 			gpio_direction_output(MIC_SEL_GPIO, 0);
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 //			headset_ramp(twl4030_socdev->card->codec, 0);		//junyeop.kim@lge.com, headset ramp disable
 						     break;
@@ -2996,9 +2997,9 @@ void voice_configure_path(voice_mode_enum mode)
 	    	if(call_headset_ramp == 0)
 			headset_ramp(codec, 1);						/* jung.chanmin@lge.com - change headset ramp enable */
 	    	set_voice_table((twl_reg_type*)&twl_headset_call_tab[0]);
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 			gpio_direction_output(MIC_SEL_GPIO, 0);
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 
 							 break;
@@ -3006,17 +3007,17 @@ void voice_configure_path(voice_mode_enum mode)
 			printk("[TWL4030]voice_configure_path::TWL4030_SPEAKER_CALL_MODE..\n");
 	    	if(call_headset_ramp == 1)
 				headset_ramp(codec, 0);						/* jung.chanmin@lge.com - change headset ramp enable */
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 			/* 20110106 jiwon.seo@lge.com : speaker phone on pop nosie [START] */
 			set_voice_table((twl_reg_type*)&twl_mic2bias_tab[0]);
 			codec_delay_msec(10);
 	    	gpio_direction_output(MIC_SEL_GPIO, 1);
 			codec_delay_msec(10); //20110206 jisun.kwon : due to pop noise when incoming call is received 100->10
 			/* 20110106 jiwon.seo@lge.com : speaker phone on pop nosie [END] */
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	    	if(get_headset_type() == HUB_NONE /*&& get_dmb_status() == 0*/)
 #elif defined(CONFIG_PRODUCT_LGE_HUB)
 			if(get_headset_type() == HUB_NONE && get_dmb_status() == 0)
@@ -3029,21 +3030,21 @@ void voice_configure_path(voice_mode_enum mode)
 			printk("[TWL4030]voice_configure_path::TWL4030_RECEIVER_CALL_MODE..\n");
 	    	if(call_headset_ramp == 1)
 				headset_ramp(codec, 0);						/* jung.chanmin@lge.com - change headset ramp enable */
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 			/* 201101016 jiwon.seo@lge.com : speaker phone on pop nosie [START]  */
 			set_voice_table((twl_reg_type*)&twl_mic1bias_tab[0]);
 			codec_delay_msec(10);
 			gpio_direction_output(MIC_SEL_GPIO, 0);
 			codec_delay_msec(10);//20110206 jisun.kwon : due to pop noise when incoming call is received 100->10
 			/* 20110106 jiwon.seo@lge.com : speaker phone on pop nosie  [END] */
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	    	if(get_headset_type() == HUB_NONE /*&& get_dmb_status() == 0*/)
 #elif defined(CONFIG_PRODUCT_LGE_HUB)
 	    	if(get_headset_type() == HUB_NONE && get_dmb_status() == 0)
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 		    	set_voice_table((twl_reg_type*)&twl_receiver_call_tab[0]);
 	    	else
 		    	set_voice_table((twl_reg_type*)&twl_receiver_call_dmb_tab[0]);
@@ -3055,13 +3056,13 @@ void voice_configure_path(voice_mode_enum mode)
 	       	if(call_headset_ramp == 0)
 			headset_ramp(codec, 1);						/* jung.chanmin@lge.com - change headset ramp enable */
 	    	set_voice_table((twl_reg_type*)&twl_headphone_call_tab[0]);
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 			gpio_direction_output(MIC_SEL_GPIO, 0);
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 
 						     break;
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 		case TWL4030_VT_HEADSET_CALL_MODE :
 			printk("[TWL4030]voice_configure_path::TWL4030_VT_HEADSET_CALL_MODE..\n");
 	    	if(call_headset_ramp == 0)
@@ -3108,7 +3109,7 @@ void voice_configure_path(voice_mode_enum mode)
 			set_voice_table((twl_reg_type*)&twl_vt_bt_call_tab[0]);
 			DBG("TWL4030_VT_BT_CALL_MODE \n");
 		break;
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 		default :
 			     break;
     }
@@ -3129,9 +3130,9 @@ void voice_configure_path(voice_mode_enum mode)
 
 EXPORT_SYMBOL_GPL(voice_get_curmode);
 EXPORT_SYMBOL_GPL(voice_configure_path);
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 EXPORT_SYMBOL_GPL(twl4030_set_mic_switch); //jongik2.kim 20101220 add mic2 control
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 #else
 static struct snd_soc_device *twl4030_socdev;
 #endif /* LGE_CHANGE_E [iggikim@lge.com]*/
@@ -3162,7 +3163,7 @@ void mic_configure_path(voice_mode_enum mode)
 		    	case TWL4030_HEADSET_CALL_MODE :  set_voice_table((twl_reg_type*)&twl_headset_mic_tab[0]);
 								 break;
 			    case TWL4030_SPEAKER_CALL_MODE :  set_voice_table((twl_reg_type*)&twl_speaker_mic_tab[0]);
-					#if (defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970))
+					#if (defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855))
 			    	if(get_headset_type() == HUB_NONE /*&& get_dmb_status() == 0*/)
 						twl_i2c_write_u8(TWL4030_MODULE_AUDIO_VOICE, 0x02, 0x04); //mic bias on, only main
 				    #else	// HUB
@@ -3173,7 +3174,7 @@ void mic_configure_path(voice_mode_enum mode)
 				         twl_i2c_write_u8(TWL4030_MODULE_AUDIO_VOICE, 0x03, 0x04); //mic bias on, external & main
 								 break;
 			    case TWL4030_RECEIVER_CALL_MODE : set_voice_table((twl_reg_type*)&twl_receiver_mic_tab[0]);
-					#if (defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970))
+					#if (defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855))
 			    	if(get_headset_type() == HUB_NONE /*&& get_dmb_status() == 0*/)
 				         twl_i2c_write_u8(TWL4030_MODULE_AUDIO_VOICE, 0x01, 0x04); //mic bias on, only main
 				    #else
@@ -3185,7 +3186,7 @@ void mic_configure_path(voice_mode_enum mode)
 				                 break;
 			    case TWL4030_HEADPHONE_CALL_MODE : set_voice_table((twl_reg_type*)&twl_receiver_mic_tab[0]);	//use the internal mic
 							     break;
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 				case TWL4030_VT_BT_CALL_MODE :
 						break;
 				case TWL4030_VT_HEADSET_CALL_MODE :  set_voice_table((twl_reg_type*)&twl_headset_mic_tab[0]);
@@ -3207,7 +3208,7 @@ void mic_configure_path(voice_mode_enum mode)
 				case TWL4030_VT_HEADPHONE_CALL_MODE :set_voice_table((twl_reg_type*)&twl_receiver_mic_tab[0]);	//use the internal mic
 						break;
 
-#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif // #if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 				default :
 				     break;
 	    	}
@@ -3443,7 +3444,7 @@ static int twl4030_hw_params(struct snd_pcm_substream *substream,
 
 	if (format != old_format || mode != old_mode) {
 // prime@sdcmicro.com Protection against noise when headset is plugged in/out [START]
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 /* LGE_CHANGE_S :  2012-07-16, gt.kim@lge.com  TD115914 Issue patch. 	*/
 #if 1
@@ -3617,7 +3618,7 @@ static int twl4030_set_dai_fmt(struct snd_soc_dai *codec_dai,
 
 	if (format != old_format) {
 // prime@sdcmicro.com Protection against noise when headset is plugged in/out [START]
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 		if (twl4030->codec_powered && call_headset_ramp == 0) {
 #else
 		if (twl4030->codec_powered) {
@@ -4181,7 +4182,7 @@ static int twl4030_soc_suspend(struct snd_soc_codec *codec, pm_message_t state)
 	twl4030_set_bias_level(codec, SND_SOC_BIAS_OFF);
 #if defined(CONFIG_PRODUCT_LGE_HUB)
 	twl4030_status = 0;	// 20100603 junyeop.kim@lge.com, headset suspend/resume [START_LGE]
-#elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#elif defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 //20101222 inbang.park@lge.com Wake lock for  FM Radio [START]
 	if(fmradio_is_on != 1)
        twl4030_status = 0;	// 20100603 junyeop.kim@lge.com, headset suspend/resume [START_LGE]
@@ -4196,7 +4197,7 @@ static int twl4030_soc_resume(struct snd_soc_codec *codec)
 
 	twl4030_set_bias_level(codec, SND_SOC_BIAS_STANDBY);
 	twl4030_status = 1;	// 20100603 junyeop.kim@lge.com, headset suspend/resume [START_LGE]
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) 
 	//20101222 inbang.park@lge.com Wake lock for  FM Radio [START]
 	fmradio_is_on = 0;
 	//20101222 inbang.park@lge.com Wake lock for  FM Radio [END]
@@ -4204,7 +4205,7 @@ static int twl4030_soc_resume(struct snd_soc_codec *codec)
 	return 0;
 }
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_HUB) /* LGE_CHANGE_S [iggikim@lge.com] 2009-11-04, call path */
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_HUB) /* LGE_CHANGE_S [iggikim@lge.com] 2009-11-04, call path */
 void hub_set_call_mode(struct snd_pcm_substream *substream, int mode)
 {
 	struct snd_soc_codec* codec = snd_soc_get_codec("twl4030-codec");
@@ -4275,7 +4276,7 @@ static int twl4030_soc_probe(struct snd_soc_codec *codec)
 	codec->dapm.bias_level = SND_SOC_BIAS_OFF;
 	codec->dapm.idle_bias_off = 1;
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_HUB) /* LGE_CHANGE_S [iggikim@lge.com] 2009-11-04, call path */
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855) || defined(CONFIG_PRODUCT_LGE_HUB) /* LGE_CHANGE_S [iggikim@lge.com] 2009-11-04, call path */
 	twl4030->is_calling = 0;
 #endif
 
@@ -4324,7 +4325,7 @@ static int __devinit twl4030_codec_probe(struct platform_device *pdev)
 		return -EINVAL;
 	}
 
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
          gpio_request(MIC_SEL_GPIO, pdev->name);
 	gpio_direction_output(MIC_SEL_GPIO, 0);
 #endif

@@ -265,7 +265,7 @@ enum twl4030_codec_res {
 	TWL4030_CODEC_RES_MAX,
 };
 // 20110106 prime@sdcmicro.com copy from sound/codecs/twl4030.h [START]
-#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#if defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 typedef enum {
 	TWL4030_AUDIO_MODE,
 	TWL4030_HEADSET_CALL_MODE,
@@ -326,7 +326,7 @@ typedef enum {
 int callrec_get_curmode(void);
 void callrec_configure_path(callrec_mode_enum mode);
 // 20100521 junyeop.kim@lge.com call recording path [END_LGE]
-#endif	// defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970)
+#endif	// defined(CONFIG_PRODUCT_LGE_LU6800) || defined(CONFIG_PRODUCT_LGE_KU5900) || defined (CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 
 int twl4030_codec_disable_resource(enum twl4030_codec_res id);
 int twl4030_codec_enable_resource(enum twl4030_codec_res id);

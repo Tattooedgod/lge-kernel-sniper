@@ -5,6 +5,9 @@ obj-$(CONFIG_HUB_MODEM_CONTROL) += hub_modem_ctrl.o
 ifeq ($(CONFIG_PRODUCT_LGE_P970),y)
 obj-$(CONFIG_HUB_MUIC)          += hub_muic.o
 endif
+ifeq ($(CONFIG_PRODUCT_LGE_XX855),y)
+obj-$(CONFIG_HUB_MUIC)          += hub_muic.o
+endif
 ifeq ($(CONFIG_PRODUCT_LGE_KU5900),y)
 obj-$(CONFIG_HUB_MUIC)          += ku5900_muic.o
 endif

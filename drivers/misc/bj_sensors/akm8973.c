@@ -1710,7 +1710,7 @@ static const struct i2c_device_id hub_akm8973_id[] = {
 //--[[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2011.07.28] - Featuring is added.
 #if defined(CONFIG_PRODUCT_LGE_LU6800)
 	{ "justin_akm8973", 0 },
-#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970)
+#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 	{ "black_akm8973", 0 },
 #else
 #error "Please check the product definition(ECompass)"
@@ -1733,7 +1733,7 @@ static struct i2c_driver akm8973_driver = {
 //--[[ LGE_UBIQUIX_MODIFIED_START : shyun@ubiquix.com [2011.07.28] - Featuring is added.
 #if defined(CONFIG_PRODUCT_LGE_LU6800)
 		   .name = "justin_akm8973",
-#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970)
+#elif defined(CONFIG_PRODUCT_LGE_KU5900) || defined(CONFIG_PRODUCT_LGE_P970) || defined(CONFIG_PRODUCT_LGE_XX855)
 		   .name = "black_akm8973",
 #else
 #error "Please check the product definition(ECompass)"
