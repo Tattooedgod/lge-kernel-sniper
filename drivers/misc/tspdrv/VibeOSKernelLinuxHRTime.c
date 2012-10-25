@@ -50,13 +50,13 @@
 //#endif
 
 #define 			WATCHDOG_TIMEOUT	10 	/* 10 timer cycles = 50ms */
-//[LGE_CHANGE_S] seungmoon.lee@lge.com, 2012-02-29
+//[LGE_CHANGE_S] seungmoon.lee@lge.com, 2012-02-29
 /* For compatibility with older Kernels */
 #ifndef DEFINE_SEMAPHORE
 #define DEFINE_SEMAPHORE(name) \
     struct semaphore name = __SEMAPHORE_INITIALIZER(name, 1)
 #endif
-//[LGE_CHANGE_E] seungmoon.lee@lge.com, 2012-02-29
+//[LGE_CHANGE_E] seungmoon.lee@lge.com, 2012-02-29
 /* Global variables */
 static bool 		g_bTimerStarted = false;
 static struct 		hrtimer g_tspTimer;
@@ -113,12 +113,12 @@ static int VibeOSKernelProcessData(void* data)
             nActuatorNotPlaying++;
             if ((NUM_ACTUATORS == nActuatorNotPlaying) && ((++g_nWatchdogCounter) > WATCHDOG_TIMEOUT))
             {
-//[LGE_CHANGE_S] seungmoon.lee@lge.com, 2012-02-29
+//[LGE_CHANGE_S] seungmoon.lee@lge.com, 2012-02-29
                 VibeInt8 cZero[1] = {0};
 
                 /* Nothing to play for all actuators, turn off the timer when we reach the watchdog tick count limit */
                 ImmVibeSPI_ForceOut_SetSamples(i, 8, 1, cZero);
-//[LGE_CHANGE_E] seungmoon.lee@lge.com, 2012-02-29
+//[LGE_CHANGE_E] seungmoon.lee@lge.com, 2012-02-29
                 ImmVibeSPI_ForceOut_AmpDisable(i);
                 VibeOSKernelLinuxStopTimer();
 
